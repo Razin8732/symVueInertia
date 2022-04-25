@@ -34,12 +34,6 @@ trait BuildInertiaDefaultPropsTrait
             }
         }
 
-        if ($user !== null && $user->getAccount() !== null) {
-            $account = ['id' => $user->getAccount()->getId(), 'name' => $user->getAccount()->getName()];
-        } else {
-            $account = [];
-        }
-
         return [
             'errors' => new \ArrayObject(),
             'auth' => [
@@ -47,9 +41,8 @@ trait BuildInertiaDefaultPropsTrait
                     ? [
                         'id' => $user->getId(),
                         'email' => $user->getEmail(),
-                        'first_name' => $user->getFirstName(),
-                        'last_name' => $user->getLastName(),
-                        'account' => $account,
+                        // 'first_name' => $user->getFirstName(),
+                        // 'last_name' => $user->getLastName(),
                         'role' => null // TODO: not sure what the vue app expects here yet...
                     ]
                     : null

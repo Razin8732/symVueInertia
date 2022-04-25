@@ -3,6 +3,8 @@
     <div class="row">
       <div class="col-md-11 m-auto mt-3">
         <h6>Welcome {{ $page.props.auth.user.email }}</h6>
+        <h3>Dashboard</h3>
+        
       </div>
     </div>
   </div>
@@ -12,7 +14,7 @@
 import { Link } from '@inertiajs/inertia-vue'
 
 export default {
-  name: 'Index',
+  name: 'Dashboard',
   metaInfo: { title: 'Dashboard' },
   components: {
     Link,

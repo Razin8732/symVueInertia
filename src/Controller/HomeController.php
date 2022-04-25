@@ -7,34 +7,38 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class HomeController extends BaseController
 {
     #[Route('/', name: 'home')]
-    public function index(InertiaInterface $inertia)
+    public function index()
     {
-        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        // sleep(2);
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $inertia->render('Home/Index', [
-                'user' => $this->getUser(),
-            ]);
+            return $this->renderWithInertia('Home/Index');
         } else {
-            return $inertia->render('Login');
+            return $this->renderWithInertia('Login');
+        }
+    }
+
+    #[Route('/dashboard', name: 'dashboard')]
+    public function dashboard()
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->renderWithInertia('Home/Dashboard');
+        } else {
+            return $this->renderWithInertia('Login');
         }
     }
 
     #[Route('/about', name: 'about')]
-    public function about(InertiaInterface $inertia)
+    public function about()
     {
-        // return $inertia->render('Home/About', ['prop' => 'value']);
-        // return $this->render('home/index.html.twig', [
-        //     'controller_name' => 'HomeController',
-        // ]);
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $inertia->render('Home/About', [
+            return $this->renderWithInertia('Home/About', [
                 'user' => $this->getUser(),
             ]);
         } else {
-            return $inertia->render('Login');
+            return $this->renderWithInertia('Login');
         }
     }
 }
