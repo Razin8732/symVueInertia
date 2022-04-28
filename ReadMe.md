@@ -20,3 +20,5 @@ yarn watch
 
 composer require friendsofsymfony/jsrouting-bundle
 php bin/console assets:install --symlink public
+
+

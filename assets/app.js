@@ -9,10 +9,13 @@
 import './styles/app.css';
 
 // start the Stimulus application
-const $ = require('jquery');
+// const $ = require('jquery');
+import $ from 'jquery';
+global.$ = global.jQuery = $;
 import './bootstrap';
-
 import './styles/app.css';
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 
 import Vue from 'vue'

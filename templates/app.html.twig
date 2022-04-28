@@ -46,6 +46,7 @@
 	</head>
 	<body id="body">
 		{{ inertia(page) }}
+		{# <div id="app" data-page="{{ page|raw|json_encode }}"></div> #}
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}

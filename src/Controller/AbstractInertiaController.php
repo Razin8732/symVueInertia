@@ -49,9 +49,7 @@ abstract class AbstractInertiaController extends AbstractController
         if ($request === null) {
             throw new \RuntimeException('There is no current request.');
         }
-
         $defaultProps = $this->buildDefaultProps($request, $currentUser);
-
         return $this->inertia->render($component, array_merge($defaultProps, $props), $viewData, $context);
     }
 }

@@ -13,7 +13,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 
-#[Route("/api/")]
 class AuthController extends BaseController
 {
 

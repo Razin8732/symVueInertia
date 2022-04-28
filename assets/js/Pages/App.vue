@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <Link class="navbar-brand" href="/">
+      <Link class="navbar-brand" :href="this.route('home')">
         App
       </Link>
       <button
@@ -20,28 +20,38 @@
           <Link
             class="nav-item"
             tag="li"
-            href="/dashboard"
+            :href="this.route('dashboard')"
             active-class="active"
           >
             <a class="nav-link">Home</a>
           </Link>
-          <Link class="nav-item" tag="li" href="/about" active-class="active">
+          <Link
+            class="nav-item"
+            tag="li"
+            :href="this.route('about')"
+            active-class=""
+          >
             <a class="nav-link">About</a>
           </Link>
           <Link
             class="nav-item"
             tag="li"
+            :href="this.route('customer')"
+            active-class=""
+          >
+            <a class="nav-link">Customer</a>
+          </Link>
+          <Link
+            class="nav-item"
+            tag="li"
             v-if="$page.props.auth.user == null"
-            href="/api/login"
+            :href="this.route('login')"
             active-class="active"
           >
             <a class="nav-link">Login</a>
           </Link>
           <li class="nav-item" v-if="$page.props.auth.user != null">
-            <Link
-              class="nav-link"
-              :href="this.route('app.logout')"
-            >
+            <Link class="nav-link" :href="this.route('app.logout')">
               Logout
             </Link>
           </li>
@@ -60,8 +70,6 @@ export default {
   components: {
     Link,
   },
-  methods: {
-    
-  },
+  methods: {},
 }
 </script>

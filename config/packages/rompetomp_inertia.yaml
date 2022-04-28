@@ -1,2 +1,2 @@
 rompetomp_inertia:
-  # root_view: 'main.html.twig'
+  # root_view: 'app.html.twig'

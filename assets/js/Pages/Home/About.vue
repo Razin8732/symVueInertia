@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h3>About</h3>
+    <div class="row">
+      <div class="col-md-11 m-auto mt-3">
+        <h3>About</h3>
+      </div>
+    </div>
   </div>
 </template>
 
