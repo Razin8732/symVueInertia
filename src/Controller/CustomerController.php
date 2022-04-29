@@ -46,7 +46,7 @@ class CustomerController extends BaseController
             return $this->renderWithInertia('Customer/Index', [
                 'customers' => $pagination,
                 'search' => $search,
-                'currentpage' => $page
+                'currentpage' => (int) $page
             ]);
         } else {
             return $this->redirect($this->generateUrl('login'));
@@ -70,13 +70,14 @@ class CustomerController extends BaseController
                 $customers,
                 $total,
                 $page,
-                'customer'
+                'customer',
+                $perpage
             );
 
             return $this->json([
                 'success' => true,
                 'customers' => $pagination,
-                'currentpage' => $page
+                'currentpage' => (int) $page
             ]);
         } else {
             return $this->redirect($this->generateUrl('login'));

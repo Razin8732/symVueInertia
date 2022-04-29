@@ -1,4 +1,5 @@
 <template>
+<!-- ##### NOT IN USE -->
   <div>
     <nav aria-label="Page navigation example">
       <ul class="pagination">
