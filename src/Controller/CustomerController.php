@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Traits\PaginationTrait;
 use App\Entity\Customer;
 use App\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,11 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Knp\Component\Pager\PaginatorInterface;
 
 #Route("/api/")
 class CustomerController extends BaseController
 {
+    use PaginationTrait;
     protected ManagerRegistry $doctrine;
 
     public function __construct(ManagerRegistry $doctrine)
@@ -22,11 +24,59 @@ class CustomerController extends BaseController
     }
 
     #[Route('customer', name: 'customer', methods: ["GET"], options: ['expose' => true])]
-    public function index(CustomerRepository $customer): Response
+    public function index(Request $request, PaginatorInterface $paginator, CustomerRepository $customer): Response
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            $search = $request->query->get('search');
+
+            [$limit, $offset] = $this->getPaginationLimitAndOffset($request->query->getInt('page', 1));
+
+            [$customers, $total] =  $customer->findAllMatchingFilter($search, $limit, $offset);
+
+            $page = $request->query->get('page', 1);
+            $pagination = $this->wrapWithPaginationData(
+                $customers,
+                $total,
+                $page,
+                'customer'
+            );
+
+
             return $this->renderWithInertia('Customer/Index', [
-                'customers' => $customer->findAll()
+                'customers' => $pagination,
+                'search' => $search,
+                'currentpage' => $page
+            ]);
+        } else {
+            return $this->redirect($this->generateUrl('login'));
+        }
+    }
+
+    #[Route('customer/search', name: 'customer_search', methods: ["GET"], options: ['expose' => true])]
+    public function customer_search(Request $request, CustomerRepository $customer)
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            $search = $request->query->get('search');
+            $perpage = $request->query->get('perPage');
+
+            [$limit, $offset] = $this->getPaginationLimitAndOffset($request->query->getInt('page', 1), $perpage);
+
+            [$customers, $total] =  $customer->findAllMatchingFilter($search, $limit, $offset);
+
+            $page = $request->query->get('page', 1);
+            $pagination = $this->wrapWithPaginationData(
+                $customers,
+                $total,
+                $page,
+                'customer'
+            );
+
+            return $this->json([
+                'success' => true,
+                'customers' => $pagination,
+                'currentpage' => $page
             ]);
         } else {
             return $this->redirect($this->generateUrl('login'));

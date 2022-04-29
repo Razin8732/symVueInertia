@@ -16,33 +16,32 @@ import './bootstrap';
 import './styles/app.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
+global.toastr = require("toastr")
+import 'toastr/build/toastr.min.css'
 
+toastr.options = {
+    closeButton: true,
+    debug: false,
+    newestOnTop: true,
+    progressBar: true,
+    positionClass: 'toast-top-right',
+    preventDuplicates: false,
+    onclick: null,
+    showDuration: '300',
+    hideDuration: '1000',
+    timeOut: '5000',
+    extendedTimeOut: '1000',
+    showEasing: 'swing',
+    hideEasing: 'linear',
+    showMethod: 'fadeIn',
+    hideMethod: 'fadeOut',
+}
 
 import Vue from 'vue'
-// import { InertiaApp } from '@inertiajs/inertia-vue'
+
 import { InertiaProgress } from '@inertiajs/progress/src'
 
-// Vue.config.productionTip = false
-// Vue.mixin({ methods: { route: window.route } })
-// Vue.use(InertiaApp)
-
 InertiaProgress.init()
-
-// let app = document.getElementById('app')
-
-// new Vue({
-//     metaInfo: {
-//         titleTemplate: (title) => title ? `${title}` : 'Demo App'
-//     },
-//     render: h => h(InertiaApp, {
-//         props: {
-//             initialPage: JSON.parse(app.dataset.page),
-//             resolveComponent: name =>
-//                 import (`@/Pages/${name}`).then(module => module.default),
-//         },
-//     }),
-// }).$mount(app)
-
 import { createInertiaApp } from '@inertiajs/inertia-vue'
 import Layout from './js/Pages/App'
 Vue.mixin({ methods: { route: window.route } })

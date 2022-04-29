@@ -47,6 +47,29 @@ class CustomerRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllMatchingFilter($search, $limit, $offset)
+    {
+        $qb = $this->createQueryBuilderForFilter($search);
+        $count = $qb->select('COUNT(c.id)')->getQuery()->getSingleScalarResult();
+        $qb1 = $this->createQueryBuilderForFilter($search);
+        $qb1->setMaxResults($limit);
+        $qb1->setFirstResult($offset);
+        $data = $qb1->getQuery()->getResult();
+        return [$data, $count];
+    }
+
+    protected function createQueryBuilderForFilter(?string $search)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        if (isset($search)) {
+            $qb->orWhere('c.name LIKE :search');
+            $qb->orWhere('c.email LIKE :search');
+            $qb->setParameter('search', '%' . $search . '%');
+        }
+
+        return $qb;
+    }
     // /**
     //  * @return Customer[] Returns an array of Customer objects
     //  */

@@ -2,9 +2,9 @@
   <div>
     <div class="row">
       <div class="col-12">
-        <ul v-if="errors">
+        <!-- <ul v-if="errors">
           <li v-for="error in errors" :key="error">{{ error }}</li>
-        </ul>
+        </ul> -->
         <!-- <textarea name="" id="" cols="30" rows="10" v-html="errors"></textarea> -->
       </div>
       <div class="col-md-3 m-auto mt-3">
@@ -71,7 +71,19 @@ export default {
       this.$inertia.post(this.route('app.login'), {
         email: this.email,
         password: this.password,
-      });
+      })
+    },
+  },
+  watch: {
+    errors: {
+      handler(errors) {
+        if (errors) {
+          Object.keys(errors).forEach((key) => {
+            toastr.error(errors[key], key)
+          })
+        }
+      },
+      deep: true,
     },
   },
 }

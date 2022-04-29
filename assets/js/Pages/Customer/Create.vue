@@ -99,14 +99,6 @@
               Create
             </button>
           </div>
-          <div class="my-3 col-md-12 text-center">
-            <div
-              class="alert alert-success"
-              id="successMsg"
-              style="display: none;"
-              @click="closeMsg"
-            ></div>
-          </div>
         </form>
       </div>
     </div>
@@ -212,16 +204,12 @@ export default {
             this.form.state = ''
             this.form.country = ''
             this.successMsg = 'Customer Created Successfully'
-            $('#successMsg').html(this.successMsg)
-            $('#successMsg').slideDown()
+            toastr.success(this.successMsg, 'Success')
           })
           .catch((error) => {
-            console.log(error)
+            toastr.error(error.response.statusText, error.response.status)
           })
       }
-    },
-    closeMsg() {
-      $('#successMsg').slideUp()
     },
   },
 }

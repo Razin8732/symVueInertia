@@ -107,6 +107,12 @@
     "graham-campbell/result-type": {
         "version": "v1.0.4"
     },
+    "knplabs/knp-components": {
+        "version": "v3.5.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
