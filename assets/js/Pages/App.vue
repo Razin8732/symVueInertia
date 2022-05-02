@@ -59,17 +59,55 @@
       </div>
     </nav>
     <slot />
+
+    <div class="box" id="loader" style="display: none;">
+      <div class="loader-11"></div>
+    </div>
+    <!-- <div class="loader-container" id="loader" style="display: none;">
+      <div class="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { Link } from '@inertiajs/inertia-vue'
-
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
     Link,
   },
   methods: {},
+  created() {
+    axios.interceptors.request.use(
+      (config) => {
+        $('#loader').show() // before callback
+        return config
+      },
+      (error) => {
+        $('#loader').hide() // if error callback
+        return Promise.reject(error)
+      },
+    )
+    axios.interceptors.response.use(
+      (response) => {
+        setTimeout(() => {
+          $('#loader').hide() // after callback
+        }, 800);
+        return response
+      },
+      (error) => {
+        setTimeout(() => {
+          $('#loader').hide() // response error callback
+        }, 800);
+        return Promise.reject(error)
+      },
+    )
+  },
 }
 </script>

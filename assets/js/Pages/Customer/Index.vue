@@ -109,7 +109,6 @@ export default {
     form: {
       handler: throttle(function () {
         let query = pickBy(this.form)
-        console.log(query)
         axios
           .get(this.route('customer.search'), {
             params: query,
